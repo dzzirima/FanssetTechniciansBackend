@@ -21,6 +21,7 @@ export const getPosts = async(req, res) => {
 
 export const createPosts = async(req, res) => {
     const post = req.body
+        // check if all the fields were given....
     const newPost = new PostMessage(post) // creation of new post based on the model
     newPost.DateCreated = new Date()
 
