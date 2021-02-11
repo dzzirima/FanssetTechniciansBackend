@@ -9,7 +9,8 @@ const postSchema = mongoose.Schema({
     NumberOfTanks: String,
     InstallationPartner: String,
     DeviceUsed: String,
-    DateCreated: Date
+    DateCreated: Date,
+    id:String
 
 });
 

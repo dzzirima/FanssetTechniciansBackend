@@ -1,6 +1,9 @@
 import mongoose from 'mongoose'
 import PostMessage from '../models/postJob.js'
 import moment from 'moment'
+import utils from '../utils/idgeneration.js'
+
+
 
 
 
@@ -9,6 +12,7 @@ import moment from 'moment'
 // more on status code :https://www.restapitutorial.com/httpsstatuscodes.html
 
 export const getPosts = async(req, res) => {
+
 
     try {
         //get all the jobs posted ..
@@ -24,7 +28,8 @@ export const createPosts = async(req, res) => {
     const post = req.body
         // check if all the fields were given....
     const newPost = new PostMessage(post) // creation of new post based on the model
-    newPost.DateCreated = moment(new Date()).format('MM Do YY')
+    newPost.DateCreated = moment(new Date())
+    newPost.id =utils.generateId()
    
     try {
 
