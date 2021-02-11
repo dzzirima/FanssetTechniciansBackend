@@ -3,6 +3,8 @@ import PostMessage from '../models/postJob.js'
 import moment from 'moment'
 
 
+
+
 // this is where all the logic of the routes is going to go
 // more on status code :https://www.restapitutorial.com/httpsstatuscodes.html
 
@@ -11,11 +13,10 @@ export const getPosts = async(req, res) => {
     try {
         //get all the jobs posted ..
         const postMessages = await PostMessage.find() // await coz it might take timeto fetch all stuff
-
-        res.status(200).json(postMessages);
+        res.status(200).header('Content-Range', `${postMessages.length}`).json(postMessages);
 
     } catch (error) {
-        res.status(404).json({ message: error.message })
+        res.status(404).json({ message:"not found" })
     }
 }
 
@@ -23,8 +24,8 @@ export const createPosts = async(req, res) => {
     const post = req.body
         // check if all the fields were given....
     const newPost = new PostMessage(post) // creation of new post based on the model
-    newPost.DateCreated = new Date()
-
+    newPost.DateCreated = moment(new Date()).format('MM Do YY')
+   
     try {
 
         await newPost.save()
@@ -55,11 +56,13 @@ export const updatePost = async(req, res) => {
 
 export const deletePost = async(req, res) => {
     const { id: id } = req.params
-    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No post with that id:')
 
-    await PostMessage.findByIdAndRemove(id)
+    // foundPost = await PostMessage.findOne({ 'id': `${id}` })
+
+    //if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No post with that id:')
+
+    await PostMessage.findByIdAndRemove(( await PostMessage.findOne({'id':`${id}`}))._id)
     res.json({ message: 'Post deleted  successfully' })
-
 
 }
 
@@ -69,6 +72,8 @@ export const likePost = async(req, res) => {
 
     const post = await PostMessage.findById(id);
     const updatedPost = await PostMessage.findByIdAndUpdate(id, { likeCount: post.likeCount + 1 }, { new: true })
+
+    
 
     res.json(updatedPost)
 
