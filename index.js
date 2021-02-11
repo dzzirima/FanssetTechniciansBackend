@@ -25,7 +25,7 @@ const PORT = process.env.PORT;
 const url = "mongodb://localhost:27017/FansetTechinicians"; // for local dev
 //process.env.CONNECTION_UR
 
-mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(PORT, { useNewUrlParser: true, useUnifiedTopology: true })
 
 .then(() => app.listen(PORT, () => console.log(`server running on port : ${PORT}`)))
     .catch((error) => console.log(error.message))
