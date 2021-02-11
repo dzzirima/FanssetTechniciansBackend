@@ -17,7 +17,7 @@ export const getPosts = async(req, res) => {
     try {
         
         const postMessages = await PostMessage.find()
-         res.status(200).header({'Content-Range': `${postMessages.length}`}).json(postMessages);
+         res.status(200).header('Content-Range', `${postMessages.length`}).json(postMessages);
 
     } catch (error) {
         res.status(404).json({ message:"not found" })
