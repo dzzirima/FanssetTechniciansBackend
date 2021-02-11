@@ -23,12 +23,11 @@ app.get('/', (req, res) => {
 
 const PORT = process.env.PORT;
 const url = "mongodb://localhost:27017/FansetTechinicians"; // for local dev
-const url2 = process.env.CONNECTION_UR
+process.env.MONGODB_URL
 
-mongoose.connect(process.env.MONGODB_URL,{ useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
 
 .then(() => app.listen(PORT, () => console.log(`server running on port : ${PORT}`)))
     .catch((error) => console.log(error.message))
-
 
 mongoose.set('useFindAndModify', false);
