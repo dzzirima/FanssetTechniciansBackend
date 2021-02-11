@@ -17,7 +17,8 @@ export const getPosts = async(req, res) => {
     try {
         //get all the jobs posted ..
         const postMessages = await PostMessage.find() // await coz it might take timeto fetch all stuff
-        res.status(200).header('Content-Range', `${postMessages.length}`).json(postMessages);
+        res.writeHead(200, {'Content-Length':`${postMessages.length}`,'Content-Type': 'text/plain' });
+        //header('Content-Range', `${postMessages.length}`).json(postMessages);
 
     } catch (error) {
         res.status(404).json({ message:"not found" })
