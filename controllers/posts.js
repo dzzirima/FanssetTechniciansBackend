@@ -12,8 +12,6 @@ import utils from '../utils/idgeneration.js'
 // more on status code :https://www.restapitutorial.com/httpsstatuscodes.html
 
 export const getPosts = async(req, res) => {
-
-
     try {
         //get all the jobs posted ..
         const postMessages = await PostMessage.find() // await coz it might take timeto fetch all stuff
