@@ -17,6 +17,7 @@ export const getPosts = async(req, res) => {
     try {
         //get all the jobs posted ..
         const postMessages = await PostMessage.find() // await coz it might take timeto fetch all stuff
+        res.setHeader('Access-Control-Expose-Headers', 'Content-Range');
         res.status(200).header({'Content-Range': `${postMessages.length}`}).json(postMessages);
 
     } catch (error) {
